@@ -277,24 +277,26 @@ export default function Home() {
 
       {/* ── Final CTA ── */}
       <section className="py-24 border-t border-border/50 bg-muted/20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center max-w-2xl">
-          <TrendingDown className="mx-auto h-8 w-8 text-muted-foreground mb-6" />
-          <h2 className="text-4xl font-bold tracking-tighter mb-4">
-            Your next board deck needs this number.
-          </h2>
-          <p className="text-muted-foreground text-lg mb-8">
-            Find out in 3 minutes exactly how much your startup is wasting on AI tooling — and
-            get a shareable report to prove it.
-          </p>
-          <Link href="/audit">
-            <Button size="lg" className="h-12 px-10 font-semibold text-base group">
-              Run Free AI Spend Audit
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-            </Button>
-          </Link>
-          <p className="text-xs text-muted-foreground/50 mt-4">
-            No signup · No credit card · Shareable report link
-          </p>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <TrendingDown className="mx-auto h-8 w-8 text-muted-foreground mb-6" />
+            <h2 className="text-4xl font-bold tracking-tighter mb-4">
+              Your next board deck needs this number.
+            </h2>
+            <p className="text-muted-foreground text-lg mb-8">
+              Find out in 3 minutes exactly how much your startup is wasting on AI tooling — and
+              get a shareable report to prove it.
+            </p>
+            <Link href="/audit">
+              <Button size="lg" className="h-12 px-10 font-semibold text-base group">
+                Run Free AI Spend Audit
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+              </Button>
+            </Link>
+            <p className="text-xs text-muted-foreground/50 mt-4">
+              No signup · No credit card · Shareable report link
+            </p>
+          </div>
         </div>
       </section>
     </>
