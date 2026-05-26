@@ -57,7 +57,8 @@ export function AuditForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema) as ReturnType<typeof zodResolver>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(formSchema) as any,
     defaultValues: {
       teamSize: 1,
       primaryUseCase: "coding",

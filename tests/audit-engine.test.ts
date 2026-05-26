@@ -281,3 +281,41 @@ describe("Savings arithmetic integrity", () => {
     expect(result.recommendations[0].type).toBe("keep");
   });
 });
+
+// ─────────────────────────────────────────────
+// RULE 8 — Per-seat overspend anomaly
+// ─────────────────────────────────────────────
+describe("Rule 8: Per-seat overspend anomaly", () => {
+  it("should flag ChatGPT when spend-per-seat is >2× market rate", () => {
+    // ChatGPT Individual/Pro = $20/seat published. $10,000/1 seat = $10,000/seat — way over.
+    const ctx: AuditContext = {
+      teamSize: 1,
+      primaryUseCase: "coding",
+      tools: [
+        { tool: "ChatGPT", plan: "Individual/Pro", monthlySpend: 10000, seats: 1 },
+      ],
+    };
+    const result = runAudit(ctx);
+    const rec = result.recommendations.find((r) => r.id === "rec-overspend-ChatGPT");
+    expect(rec).toBeDefined();
+    expect(rec!.type).toBe("downgrade");
+    // Excess = 10000 - (20 * 1) = 9980
+    expect(result.monthlySavings).toBe(9980);
+    expect(result.annualSavings).toBe(9980 * 12);
+  });
+
+  it("should NOT flag normal spend at or below 2× market rate", () => {
+    // ChatGPT Individual/Pro = $20/seat. $35/seat is under 2× ($40 threshold).
+    const ctx: AuditContext = {
+      teamSize: 1,
+      primaryUseCase: "coding",
+      tools: [
+        { tool: "ChatGPT", plan: "Individual/Pro", monthlySpend: 35, seats: 1 },
+      ],
+    };
+    const result = runAudit(ctx);
+    const rec = result.recommendations.find((r) => r.id === "rec-overspend-ChatGPT");
+    expect(rec).toBeUndefined();
+    expect(result.monthlySavings).toBe(0);
+  });
+});

@@ -252,6 +252,45 @@ export function runAudit(context: AuditContext): AuditResult {
   }
 
   // ──────────────────────────────────────────────────────────────
+  // RULE 8 — Per-seat overspend anomaly
+  // If actual spend-per-seat is >2× the known market rate for that plan,
+  // the team is overpaying — likely via a reseller markup, hidden add-ons,
+  // or an incorrectly assigned plan tier.
+  // ──────────────────────────────────────────────────────────────
+  for (const input of toolMap.values()) {
+    if (input.plan === "API") continue; // Usage-based — no fixed seat price
+
+    const alreadyCovered = recommendations.some(
+      (r) => r.tool === input.tool && r.type !== "keep"
+    );
+    if (alreadyCovered) continue;
+
+    const knownTier = TOOL_PRICING[input.tool]?.find((p) => p.plan === input.plan);
+    if (!knownTier || knownTier.pricePerUser === 0) continue;
+
+    const actualPerSeat = input.monthlySpend / Math.max(input.seats, 1);
+    const marketPerSeat = knownTier.pricePerUser;
+
+    if (actualPerSeat > marketPerSeat * 2) {
+      const expectedSpend = marketPerSeat * input.seats;
+      const excess = Math.round(input.monthlySpend - expectedSpend);
+      recommendations.push({
+        id: `rec-overspend-${input.tool}`,
+        tool: input.tool,
+        type: "downgrade",
+        reasoning: `Your reported spend of $${input.monthlySpend.toLocaleString()}/mo for ${input.tool} ${input.plan} works out to $${Math.round(actualPerSeat).toLocaleString()}/seat — more than 2× the published market rate of $${marketPerSeat}/seat. This is a strong signal of a reseller markup, undisclosed add-ons, or incorrect plan assignment. Auditing your invoice against the vendor's direct billing portal could recover $${excess.toLocaleString()}/mo immediately.`,
+        monthlySavings: excess,
+        newPlan: input.plan,
+      });
+      monthlySavings += excess;
+      savingsBreakdown.push({
+        label: `${input.tool} overspend vs. published rate ($${marketPerSeat}/seat)`,
+        amount: excess,
+      });
+    }
+  }
+
+  // ──────────────────────────────────────────────────────────────
   // Fallback: fully optimized
   // ──────────────────────────────────────────────────────────────
   if (recommendations.length === 0) {
