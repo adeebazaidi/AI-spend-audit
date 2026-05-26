@@ -4,6 +4,8 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { AITool, PlanType } from "@/lib/pricing";
+import { runAudit } from "@/lib/audit-engine";
+import { saveReport } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -71,11 +73,16 @@ export function AuditForm() {
   async function onSubmit(data: FormValues) {
     setIsSubmitting(true);
     try {
-      // In a real app, we might save this to Supabase here and get an ID
-      // For MVP, we can encode the data in the URL or use local storage to pass to the report page
-      const encodedData = btoa(JSON.stringify(data));
+      const result = runAudit(data);
+      const reportId = await saveReport(data, result);
       
-      router.push(`/report/results?data=${encodedData}`);
+      if (reportId) {
+        router.push(`/report/results?id=${reportId}`);
+      } else {
+        // Fallback if Supabase is not configured
+        const encodedData = btoa(JSON.stringify(data));
+        router.push(`/report/results?data=${encodedData}`);
+      }
     } catch (error) {
       console.error(error);
       setIsSubmitting(false);
