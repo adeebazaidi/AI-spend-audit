@@ -81,7 +81,7 @@ export async function getReport(id: string): Promise<{ context: AuditContext, re
       context: data.context as AuditContext,
       result: data.result as AuditResult
     };
-  } catch (err) {
+  } catch {
     return null;
   }
 }

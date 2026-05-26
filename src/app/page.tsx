@@ -29,7 +29,7 @@ const FEATURES = [
     icon: Zap,
     title: "3-Minute Audit. Immediate ROI.",
     description:
-      "No integrations. No OAuth. No month-long onboarding. Fill out what you're currently paying and we give you a shareable PDF-grade report instantly.",
+      "No integrations. No OAuth. No month-long onboarding. Fill out what you're currently paying and we give you a shareable report instantly.",
   },
 ];
 
@@ -60,13 +60,14 @@ const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Enter your current tooling",
-    description: "List each AI tool, the plan you're on, monthly spend, and seat count. Takes 2 minutes.",
+    description:
+      "List each AI tool, the plan you're on, monthly spend, and seat count. Takes 2 minutes.",
   },
   {
     step: "02",
     title: "Engine runs deterministic analysis",
     description:
-      "Our rules engine evaluates 12+ savings heuristics: redundancy, over-provisioning, tier mismatches, and minimum-seat traps.",
+      "Our rules engine evaluates 7 savings heuristics: redundancy, over-provisioning, tier mismatches, and minimum-seat traps.",
   },
   {
     step: "03",
@@ -78,276 +79,224 @@ const HOW_IT_WORKS = [
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-dvh">
-      {/* Navigation */}
-      <header className="px-4 lg:px-6 h-14 flex items-center border-b border-border/40 backdrop-blur-sm sticky top-0 z-50 bg-background/80">
-        <Link className="flex items-center gap-2" href="/">
-          <div className="h-6 w-6 rounded bg-foreground flex items-center justify-center">
-            <TrendingDown className="h-3.5 w-3.5 text-background" />
-          </div>
-          <span className="font-semibold text-sm tracking-tight">Spendwise AI</span>
-        </Link>
-        <nav className="ml-auto flex items-center gap-1">
-          <Link
-            className="text-sm font-medium px-3 py-1.5 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/60"
-            href="#how-it-works"
-          >
-            How it works
-          </Link>
-          <Link
-            className="text-sm font-medium px-3 py-1.5 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/60"
-            href="#social-proof"
-          >
-            Results
-          </Link>
-          <Link href="/audit">
-            <Button size="sm" className="ml-2 h-8 text-xs font-medium">
-              Run Free Audit <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-            </Button>
-          </Link>
-        </nav>
-      </header>
+    <>
+      {/* ── Hero ── */}
+      <section className="relative w-full pt-24 pb-20 lg:pt-32 lg:pb-28 overflow-hidden text-center">
+        {/* Grid bg */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, hsl(var(--border)/0.4) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)/0.4) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+            maskImage:
+              "radial-gradient(ellipse 80% 55% at 50% 0%, black 40%, transparent 100%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 80% 55% at 50% 0%, black 40%, transparent 100%)",
+          }}
+        />
 
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="w-full pt-24 pb-20 lg:pt-32 lg:pb-28 flex justify-center text-center relative overflow-hidden">
-          {/* Subtle grid background */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, hsl(var(--border)/0.5) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)/0.5) 1px, transparent 1px)",
-              backgroundSize: "64px 64px",
-              maskImage: "radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%)",
-              WebkitMaskImage:
-                "radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%)",
-            }}
-          />
-
-          <div className="container px-4 md:px-6 relative">
-            <div className="flex flex-col items-center space-y-6 max-w-4xl mx-auto">
-              {/* Live badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/50 px-3.5 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-sm">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-                </span>
-                Average savings identified: <span className="text-foreground font-semibold ml-1">$12,400/yr</span>
-              </div>
-
-              <h1 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl leading-[0.95] max-w-3xl">
-                Stop Overpaying for{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10">AI Infrastructure.</span>
-                  <span
-                    className="absolute bottom-1 left-0 right-0 h-3 z-0 opacity-20 bg-foreground"
-                    style={{ transform: "skew(-2deg)" }}
-                  />
-                </span>
-              </h1>
-
-              <p className="text-muted-foreground text-lg md:text-xl max-w-2xl leading-relaxed">
-                Startups waste{" "}
-                <span className="text-foreground font-medium">42% on redundant AI tooling</span>,
-                idle enterprise seats, and minimum-seat traps. Run a free 3-minute audit and see
-                exactly where you can cut — without touching a single integration.
-              </p>
-
-              {/* Tool logos pill */}
-              <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
-                <span className="font-medium">Audits:</span>
-                {TOOLS.map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-2.5 py-1 rounded-full border border-border/60 bg-muted/40 font-medium text-foreground/70 text-xs"
-                  >
-                    {tool}
-                  </span>
-                ))}
-                <span className="text-muted-foreground">+ more</span>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3 mt-4">
-                <Link href="/audit">
-                  <Button size="lg" className="h-11 px-7 font-medium group text-sm">
-                    Run Free Audit — Takes 3 minutes
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-                  </Button>
-                </Link>
-                <Link href="/report/results?data=eyJ0ZWFtU2l6ZSI6MTAsInByaW1hcnlVc2VDYXNlIjoiY29kaW5nIiwidG9vbHMiOlt7InRvb2wiOiJDdXJzb3IiLCJwbGFuIjoiSW5kaXZpZHVhbC9Qcm8iLCJtb250aGx5U3BlbmQiOjIwMCwic2VhdHMiOjEwfSx7InRvb2wiOiJHaXRIdWIgQ29waWxvdCIsInBsYW4iOiJUZWFtIiwibW9udGhseVNwZW5kIjoxOTAsInNlYXRzIjoxMH1dfQ==">
-                  <Button size="lg" variant="outline" className="h-11 px-7 text-sm font-medium">
-                    View Sample Report <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
-                  </Button>
-                </Link>
-              </div>
-
-              <p className="text-xs text-muted-foreground/60">
-                No account required. No integrations. 100% free.
-              </p>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center gap-6 max-w-4xl mx-auto">
+            {/* Live badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/50 px-3.5 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-sm">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+              </span>
+              Average savings identified:{" "}
+              <span className="text-foreground font-semibold ml-0.5">$12,400/yr</span>
             </div>
-          </div>
-        </section>
 
-        {/* Stats Bar */}
-        <section className="border-y border-border/50 bg-muted/30 py-8">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="grid grid-cols-3 divide-x divide-border/60 max-w-2xl mx-auto">
-              {STATS.map((stat) => (
-                <div key={stat.label} className="text-center px-4 md:px-8">
-                  <div className="text-2xl md:text-3xl font-bold tracking-tight font-mono">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1 leading-snug">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+            <h1 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl leading-[0.95] max-w-3xl">
+              Stop Overpaying for{" "}
+              <span className="relative inline-block">
+                <span className="relative z-10">AI Infrastructure.</span>
+                <span
+                  className="absolute bottom-1 left-0 right-0 h-3 z-0 opacity-20 bg-foreground"
+                  style={{ transform: "skew(-2deg)" }}
+                />
+              </span>
+            </h1>
 
-        {/* Features */}
-        <section id="features" className="w-full py-24 flex justify-center">
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
-                Built for engineering-led startups
-              </h2>
-              <p className="text-muted-foreground max-w-xl mx-auto">
-                The people who approve AI tooling budgets need numbers, not vibes. Spendwise gives
-                you both.
-              </p>
-            </div>
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
-              {FEATURES.map((feature) => (
-                <div
-                  key={feature.title}
-                  className="flex flex-col gap-3 p-6 rounded-xl border border-border/60 bg-card hover:border-border transition-colors"
+            <p className="text-muted-foreground text-lg md:text-xl max-w-2xl leading-relaxed">
+              Startups waste{" "}
+              <span className="text-foreground font-medium">42% on redundant AI tooling</span>,
+              idle enterprise seats, and minimum-seat traps. Run a free 3-minute audit — no
+              signup, no integrations.
+            </p>
+
+            {/* Tool chips */}
+            <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
+              <span className="font-medium">Audits:</span>
+              {TOOLS.map((tool) => (
+                <span
+                  key={tool}
+                  className="px-2.5 py-1 rounded-full border border-border/60 bg-muted/40 font-medium text-foreground/70"
                 >
-                  <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
-                    <feature.icon className="h-5 w-5 text-foreground" />
-                  </div>
-                  <h3 className="text-base font-semibold leading-snug">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
+                  {tool}
+                </span>
               ))}
+              <span>+ more</span>
             </div>
-          </div>
-        </section>
 
-        {/* How it works */}
-        <section
-          id="how-it-works"
-          className="w-full py-24 border-y border-border/50 bg-muted/20 flex justify-center"
-        >
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
-                How it works
-              </h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                No smoke and mirrors. Here's exactly what the engine does.
-              </p>
-            </div>
-            <div className="grid gap-8 md:grid-cols-3 max-w-4xl mx-auto">
-              {HOW_IT_WORKS.map((step) => (
-                <div key={step.step} className="flex flex-col gap-3">
-                  <div className="font-mono text-4xl font-bold text-foreground/10">{step.step}</div>
-                  <h3 className="text-base font-semibold">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-12">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-2">
               <Link href="/audit">
-                <Button size="lg" className="h-11 px-8 font-medium text-sm group">
-                  Start Your Free Audit
+                <Button size="lg" className="h-11 px-8 font-semibold text-sm group">
+                  Run Free Audit — 3 minutes
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                 </Button>
               </Link>
+              <Link href="/report/results?data=eyJ0ZWFtU2l6ZSI6MTAsInByaW1hcnlVc2VDYXNlIjoiY29kaW5nIiwidG9vbHMiOlt7InRvb2wiOiJDdXJzb3IiLCJwbGFuIjoiSW5kaXZpZHVhbC9Qcm8iLCJtb250aGx5U3BlbmQiOjIwMCwic2VhdHMiOjEwfSx7InRvb2wiOiJHaXRIdWIgQ29waWxvdCIsInBsYW4iOiJUZWFtIiwibW9udGhseVNwZW5kIjoxOTAsInNlYXRzIjoxMH1dfQ==">
+                <Button size="lg" variant="outline" className="h-11 px-8 text-sm font-medium">
+                  View Sample Report <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
+                </Button>
+              </Link>
             </div>
-          </div>
-        </section>
-
-        {/* Social Proof / Testimonials */}
-        <section id="social-proof" className="w-full py-24 flex justify-center">
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
-                Teams that ran the audit, saved real money
-              </h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                These aren't hypothetical. These are specific over-payments our engine found.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {TESTIMONIALS.map((t) => (
-                <div
-                  key={t.author}
-                  className="p-6 rounded-xl border border-border/60 bg-card flex flex-col gap-4"
-                >
-                  <p className="text-sm text-muted-foreground leading-relaxed italic">
-                    "{t.quote}"
-                  </p>
-                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50">
-                    <div>
-                      <div className="text-sm font-semibold">{t.author}</div>
-                      <div className="text-xs text-muted-foreground">{t.role}</div>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-emerald-500 bg-emerald-500/10 px-2.5 py-1 rounded-full">
-                      <CheckCircle2 className="h-3 w-3" />
-                      {t.savings}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Final CTA */}
-        <section className="w-full py-24 border-t border-border/50 bg-muted/20 flex justify-center">
-          <div className="container px-4 md:px-6 text-center max-w-2xl">
-            <h2 className="text-4xl font-bold tracking-tighter mb-4">
-              Your next board deck needs this number.
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8">
-              Find out in 3 minutes exactly how much your startup is wasting on AI tooling — and
-              get a shareable report to prove it.
+            <p className="text-xs text-muted-foreground/50">
+              No account · No credit card · Shareable report link
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Stats Bar ── */}
+      <section className="border-y border-border/50 bg-muted/20 py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-3 divide-x divide-border/50 max-w-2xl mx-auto">
+            {STATS.map((stat) => (
+              <div key={stat.label} className="text-center px-4 md:px-8">
+                <div className="text-2xl md:text-3xl font-bold tracking-tight font-mono">
+                  {stat.value}
+                </div>
+                <div className="text-xs text-muted-foreground mt-1 leading-snug">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Features ── */}
+      <section id="features" className="py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-3">
+              Built for engineering-led startups
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              The people who approve AI tooling budgets need numbers, not vibes. Spendwise gives
+              you both.
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURES.map((f) => (
+              <div
+                key={f.title}
+                className="flex flex-col gap-3 p-6 rounded-xl border border-border/60 bg-card hover:border-border transition-colors"
+              >
+                <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
+                  <f.icon className="h-5 w-5 text-foreground" />
+                </div>
+                <h3 className="text-sm font-semibold leading-snug">{f.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{f.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── How it works ── */}
+      <section id="how-it-works" className="py-24 border-y border-border/50 bg-muted/20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-3">
+              How it works
+            </h2>
+            <p className="text-muted-foreground max-w-lg mx-auto">
+              No smoke and mirrors. Here&apos;s exactly what the engine does.
+            </p>
+          </div>
+          <div className="grid gap-10 md:grid-cols-3 max-w-4xl mx-auto">
+            {HOW_IT_WORKS.map((s) => (
+              <div key={s.step} className="flex flex-col gap-3">
+                <div className="font-mono text-4xl font-bold text-foreground/10">{s.step}</div>
+                <h3 className="text-sm font-semibold">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{s.description}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-12">
             <Link href="/audit">
-              <Button size="lg" className="h-12 px-10 font-medium text-base group">
-                Run Free AI Spend Audit
+              <Button size="lg" className="h-11 px-8 font-semibold text-sm group">
+                Start Your Free Audit
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
               </Button>
             </Link>
-            <p className="text-xs text-muted-foreground/60 mt-4">
-              No signup · No credit card · Shareable report link
+          </div>
+        </div>
+      </section>
+
+      {/* ── Social Proof ── */}
+      <section id="social-proof" className="py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-3">
+              Teams that ran the audit, saved real money
+            </h2>
+            <p className="text-muted-foreground max-w-lg mx-auto">
+              These aren&apos;t hypothetical. These are specific over-payments our engine found.
             </p>
           </div>
-        </section>
-      </main>
-
-      <footer className="w-full border-t border-border/40 py-8">
-        <div className="container px-4 md:px-6 mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="h-5 w-5 rounded bg-foreground flex items-center justify-center">
-              <TrendingDown className="h-3 w-3 text-background" />
-            </div>
-            <span className="text-sm font-medium">Spendwise AI</span>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {TESTIMONIALS.map((t) => (
+              <div
+                key={t.author}
+                className="p-6 rounded-xl border border-border/60 bg-card flex flex-col gap-4"
+              >
+                <p className="text-sm text-muted-foreground leading-relaxed italic">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50">
+                  <div>
+                    <div className="text-sm font-semibold">{t.author}</div>
+                    <div className="text-xs text-muted-foreground">{t.role}</div>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-emerald-500 bg-emerald-500/10 px-2.5 py-1 rounded-full">
+                    <CheckCircle2 className="h-3 w-3" />
+                    {t.savings}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Spendwise AI Inc. — Deterministic AI cost intelligence.
-          </p>
-          <nav className="flex gap-4">
-            <Link href="/audit" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Run Audit
-            </Link>
-          </nav>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      {/* ── Final CTA ── */}
+      <section className="py-24 border-t border-border/50 bg-muted/20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center max-w-2xl">
+          <TrendingDown className="mx-auto h-8 w-8 text-muted-foreground mb-6" />
+          <h2 className="text-4xl font-bold tracking-tighter mb-4">
+            Your next board deck needs this number.
+          </h2>
+          <p className="text-muted-foreground text-lg mb-8">
+            Find out in 3 minutes exactly how much your startup is wasting on AI tooling — and
+            get a shareable report to prove it.
+          </p>
+          <Link href="/audit">
+            <Button size="lg" className="h-12 px-10 font-semibold text-base group">
+              Run Free AI Spend Audit
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+            </Button>
+          </Link>
+          <p className="text-xs text-muted-foreground/50 mt-4">
+            No signup · No credit card · Shareable report link
+          </p>
+        </div>
+      </section>
+    </>
   );
 }

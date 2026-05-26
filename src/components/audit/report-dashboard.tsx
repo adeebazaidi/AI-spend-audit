@@ -10,7 +10,6 @@ import { Separator } from "@/components/ui/separator";
 import {
   AlertCircle,
   CheckCircle2,
-  TrendingDown,
   ArrowRight,
   Share2,
   Zap,
@@ -82,7 +81,7 @@ export function ReportDashboard({
         <AlertCircle className="h-12 w-12 text-destructive mb-4" />
         <h2 className="text-2xl font-bold mb-2">Invalid or Missing Data</h2>
         <p className="text-muted-foreground mb-6">
-          We couldn't generate a report from the provided link.
+          We couldn&apos;t generate a report from the provided link.
         </p>
         <Link href="/audit">
           <Button>Start New Audit</Button>
@@ -297,8 +296,8 @@ export function ReportDashboard({
               Want a step-by-step execution plan?
             </CardTitle>
             <CardDescription className="text-sm leading-relaxed">
-              We'll send you a vendor renegotiation guide, procurement email templates, and
-              migration checklists — specific to these recommendations. Takes 2 minutes to
+              We&apos;ll send you a vendor renegotiation guide, procurement email templates,
+              and migration checklists — specific to these recommendations. Takes 2 minutes to
               implement the first saving.
             </CardDescription>
           </CardHeader>
@@ -333,8 +332,8 @@ export function ReportDashboard({
               Check your inbox
             </CardTitle>
             <CardDescription>
-              We've sent the execution plan to <strong>{email}</strong>. If you'd like help
-              implementing it, reply to that email — our optimization team responds within 24
+              We&apos;ve sent the execution plan to <strong>{email}</strong>. If you&apos;d like
+              help implementing it, reply to that email — our optimization team responds within 24
               hours.
             </CardDescription>
           </CardHeader>

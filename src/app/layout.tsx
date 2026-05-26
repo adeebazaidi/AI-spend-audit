@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +16,7 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://spendwise.ai";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://spendwise-ai-cyan.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -34,6 +36,13 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Spendwise AI" }],
   creator: "Spendwise AI",
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -57,7 +66,6 @@ export const metadata: Metadata = {
     description:
       "Startups waste 42% on redundant AI tooling. Find out exactly where yours is in 3 minutes.",
     images: ["/og-image.png"],
-    creator: "@spendwiseai",
   },
   robots: {
     index: true,
@@ -78,7 +86,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground antialiased">
-        {children}
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

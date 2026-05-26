@@ -57,7 +57,7 @@ export function AuditForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema) as any,
+    resolver: zodResolver(formSchema) as ReturnType<typeof zodResolver>,
     defaultValues: {
       teamSize: 1,
       primaryUseCase: "coding",
